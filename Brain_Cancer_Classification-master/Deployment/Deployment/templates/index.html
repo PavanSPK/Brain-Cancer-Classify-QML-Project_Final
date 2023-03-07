@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    {% load static %}
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap" rel="stylesheet"> -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital@1&display=swap" rel="stylesheet">
+    <style>
+        *{
+            background-color: #d2f2fc;
+            font-family: 'Noto Sans', sans-serif;
+        }
+            .header-fixed-placeholder{
+                height: 80px;
+                display: none;
+            }
+            .header-fixed .header-limiter h1 {
+                text-align: center;
+                font-family: 'Noto Sans', sans-serif;
+                line-height: 40px;
+                margin: 0;
+                width: 100%;
+                padding-left: 30px;
+            }
+            .header-fixed .header-limiter h1 span {
+                color: #5383d3;
+            }
+            .content{
+                margin-top: 15px;
+            }
+            .classify{
+                
+                font-size: 1.8em;
+                all: initial;
+                color: #fff;
+                background-color: #25f;
+                border-radius: 5px;
+                cursor: pointer;
+                letter-spacing: 0.02em;
+                box-shadow: 0px 0px 0.6em #111c;
+                padding: 0.5em 1em;
+            }
+
+        </style>
+    </head>
+<body>
+<main>
+    <header class="header-fixed">
+        <div class="header-limiter">
+            <section id="home-section">
+                <div>
+                <h1>Classify  <span>MRI</span></h1><br>
+            </div>
+            </section>
+        <div>
+        <div class="content">
+          <fieldset>
+              <legend>Welcome to Brain Cancer Classification Portal</legend>
+              <p>Select a brain MRI picture, required resolution: 512x512</p>
+              <form action="classify/" method="post" enctype="multipart/form-data" id="imageForm">
+                  {% csrf_token %}
+                  {{ form.as_p }}
+                <div>
+                  <span><button class="classify" name="submit">Classify</button></span>
+                </div>
+              </form>
+          </fieldset>
+        </div>
+          <div id="result">
+          </div>
+          
+      </div>
+    
+    </div>
+    </header>
+</main>
+<script>
+    $(function() {
+        $('form').submit(function (e) {
+            e.preventDefault();
+            $("#result").html("Process ...")
+            var data = new FormData();
+            
+            data.append("csrfmiddlewaretoken", $("form :input[type='hidden']").val());
+            data.append("imgfield", $("form :input[type='file']")[0].files[0])
+
+            $.ajax({
+                url: 'classify/',
+                data: data,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                success: function ( data ) {
+                    var types = {
+                        "1": "Meningioma",
+                        "2": "glioma",
+                        "3": "Pituitary Tumor"
+                    }
+                    if (data['error'] != 'null')
+                        $("#result").html("<p style='color: red'>Error: "+data['error']+"</p>")
+                    else
+                        $("#result").html("<p style='color: blue'>The Tumor type is: "+types[data['yhat']]+"</p>")
+                    //console.log(data);
+                },
+                error: function(error) {
+                    $("#result").html("<p style='color: red'>Error with code: "+error.status+", Please try a valid picture as discribed</p>")
+
+                }
+                
+            });
+
+        });
+        //console.log($("input"));
+    });
+</script>
+</body>
+</html>
