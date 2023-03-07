@@ -1,4 +1,4 @@
-# ![](https://github.com/ggirlk/holbertonschool-machine_learning/blob/master/holberton-logo.png?raw=true) Portfolio Project: Brain Cancer Classification with QML <🧠|1>
+
 
 ![](goal.png)
 
@@ -17,7 +17,7 @@ Our Solution is about Brain Cancer Classification that means Classifying differe
 * Update the database 
 
 ## 👉 Environment
-This project is interpreted/tested on Ubuntu 20.04.3 LTS using python3 (V 3.8.3)
+This project is interpreted/tested on windows using python3 (V 3.9.7)
 
 
 ## 👉 Installation
@@ -62,6 +62,5 @@ Public Domain. No copy write protection.
 
 <hr>
 
-By [Khouloud](https://www.linkedin.com/in/khouloud-alkhammassi-3a9078129), [Ghofrane](https://github.com/anaruzz) and [Mouhamed](https://github.com/medcharfi96) Software engineers at [HolbertonSchool®️](https://www.holbertonschool.com)
 
 
