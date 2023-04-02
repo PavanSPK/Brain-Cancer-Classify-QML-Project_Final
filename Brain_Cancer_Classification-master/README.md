@@ -21,7 +21,7 @@ This project is interpreted/tested on windows using python3 (V 3.9.7)
 
 
 ## 👉 Installation
-* Clone this repository: `git clone "https://github.com/ggirlk/Brain_Cancer_Classification.git"`
+* Clone this repository: `https://github.com/PavanSPK/Brain-Cancer-Classify-QML-Project_Final`
 * Access deployment directory: `cd deployment`
 * Run the command: `python manage.py runserver`
 * Browse your MRI  and wait for the result
